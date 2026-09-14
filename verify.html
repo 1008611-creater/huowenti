@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>在场 · 提供现场反馈</title>
+<meta name="description" content="你亲自看到的情况，比任何推测都更有价值。">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="grain"></div>
+<div class="wrap">
+
+<header class="site">
+  <a class="brand" href="/"><span class="mark">◉</span><span>在场</span><small>Reality, verified.</small></a>
+  <span class="pill ghost">现场反馈入口</span>
+</header>
+
+<main class="narrow">
+  <p class="eyebrow">请只填写你亲自看到或刚刚经历的内容</p>
+  <h1 class="display" style="font-size:clamp(28px,4.6vw,46px)">你的现场观察，<br>决定这条答案。</h1>
+
+  <div class="case-q" id="case-question"><small>正在读取问题</small><strong>请稍候…</strong></div>
+
+  <form class="stack" id="feedback-form">
+    <label class="field"><span>怎么称呼你？</span>
+      <input type="text" name="displayName" maxlength="40" placeholder="昵称即可，也可以留空匿名">
+    </label>
+
+    <label class="field"><span>你在哪里看到的？</span>
+      <input type="text" name="area" maxlength="60" placeholder="例如：北门附近（不要填写门牌或精确住址）">
+    </label>
+
+    <label class="field"><span>现场发生了什么？<em>*</em></span>
+      <textarea name="content" minlength="5" maxlength="600" required placeholder="请描述你亲自看到的情况，例如：入口是否开放、是否排队、地面是否积水、工作人员怎么说。"></textarea>
+    </label>
+
+    <fieldset>
+      <label class="field" style="margin-bottom:0"><span>你和现场的关系是？<em>*</em></span></label>
+      <div class="radio-grid" id="relation-grid"></div>
+    </fieldset>
+
+    <button class="primary-cta" type="submit" id="submit">提交现场反馈 <span>→</span></button>
+    <p class="form-msg" id="result" role="status"></p>
+  </form>
+
+  <div class="privacy" style="margin-top:30px">
+    <b>隐私与边界</b>
+    不要填写身份证号、手机号、精确住址或他人的隐私信息。你提交的是现场观察，不是身份认证；系统不会自动把单条匿名反馈当作已确认事实。
+  </div>
+</main>
+
+<footer class="site">
+  <span><b>在场 Zaichang</b> · 知乎黑客松 2026</span>
+  <a href="/">← 返回首页</a>
+</footer>
+
+</div>
+<script src="/verify.js"></script>
+</body>
+</html>

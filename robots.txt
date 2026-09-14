@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /verify/
+Disallow: /case/
+Disallow: /oauth/

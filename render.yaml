@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: zaichang
+    runtime: node
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: ZHIHU_ACCESS_SECRET
+        sync: false
+      - key: ZHIHU_OAUTH_APP_ID
+        sync: false
+      - key: ZHIHU_OAUTH_APP_KEY
+        sync: false
+      - key: ZHIHU_OAUTH_REDIRECT_URI
+        sync: false

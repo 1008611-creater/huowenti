@@ -1,0 +1,21 @@
+# 依赖与本地环境
+node_modules/
+.env
+.env.*
+!.env.example
+*.log
+
+# 运行期数据：参与者经历、在场使用数据都不进仓库
+data/huowenti.json
+data/cases.json
+data/*.tmp
+data/*.bak
+data/*.bak-*
+
+# 本地日志、隧道工具与临时文件
+logs/
+tmp-*.json
+*.tmp
+
+# 系统误写的目录
+%SystemDrive%/

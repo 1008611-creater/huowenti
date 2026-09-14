@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>活问题 · 一个会主动寻找回答者的问题</title>
+<meta name="description" content="当 AI 已经读过互联网，知乎可以让它继续向现实中的人发问。活问题记录公开内容覆盖不足的地方，并把问题送到真正经历过这件事的人手里。">
+<link rel="icon" href="/assets/favicon.svg">
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<link rel="stylesheet" href="/huowenti.css">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div class="wrap">
+
+<header class="site">
+  <a class="brand" href="#/" aria-label="活问题 首页">
+    <span class="mark">◆</span>
+    活问题
+    <small>LIVING QUESTION</small>
+  </a>
+  <nav class="nav" id="nav" aria-label="主导航">
+    <a class="pill" href="#/" data-nav="scene">活问题现场</a>
+    <a class="pill" href="#/interview" data-nav="interview">参与采访</a>
+    <a class="pill" href="#/conclusions" data-nav="conclusions">当前结论</a>
+    <a class="pill" href="#/answer" data-nav="answer">知乎回答</a>
+    <a class="pill" href="#/universe" data-nav="universe">知识宇宙</a>
+    <a class="pill" href="#/new" data-nav="new">提出新问题</a>
+  </nav>
+</header>
+
+<main id="app">
+
+  <!-- ============ 1. 活问题现场 ============ -->
+  <section class="view" id="view-scene" hidden>
+    <div class="section hero">
+      <div class="scene-top">
+        <div>
+          <p class="eyebrow">活问题 · 现场</p>
+          <h1 class="display" id="scene-title">正在加载这个问题…</h1>
+          <p class="lede" id="scene-sub"></p>
+          <div class="boundary" id="scene-boundary" hidden>
+            <b>这个问题现在能回答到什么程度</b>
+            <p></p>
+          </div>
+          <p class="hero-quote" id="scene-quote">有些答案不在互联网上，它们还在经历过这件事的人手里。</p>
+        </div>
+        <div>
+          <div class="stat-row" id="scene-stats"></div>
+          <div class="side-note" style="margin-top:14px">
+            <span class="kicker">这个问题在找谁</span>
+            <p id="scene-seeking">—</p>
+          </div>
+          <div class="side-note">
+            <span class="kicker">公开内容已经说了什么</span>
+            <p id="scene-known">—</p>
+          </div>
+          <div class="side-note">
+            <span class="kicker">仍然读不到的部分</span>
+            <p id="scene-missing">—</p>
+          </div>
+        </div>
+      </div>
+      <div class="cta-row">
+        <a class="cta" href="#/interview">回答一个只有你知道的问题</a>
+        <a class="cta alt" href="#/conclusions">查看当前调查结论</a>
+      </div>
+    </div>
+
+    <div class="section">
+      <p class="eyebrow">三个缺口</p>
+      <h2 class="h">这个问题不是没有内容，而是内容接不上</h2>
+      <p class="sub" style="max-width:60ch">下面每一条都来自实际检索结果：能读到的部分写清来源，读不到的部分如实留空。缺口不是营销话术，它是这个页面接下来要去找人的理由。</p>
+      <div class="grid g3" id="scene-gaps" style="margin-top:22px"></div>
+    </div>
+
+    <div class="section">
+      <p class="eyebrow">内容分布 · 三维图谱</p>
+      <h2 class="h">时间 × 子命题 × 内容数量</h2>
+      <p class="sub" style="max-width:64ch">横轴是时间，纵轴是六条子命题，高度是这一格里的内容条数。每颗星是一条可以点开核对的内容；微光只表示密度，不参与统计，也不能点击。</p>
+      <div class="map-block" id="scene-map">
+        <div class="map-frame">
+          <div class="map-stage">
+            <div class="map-empty" id="map-empty" hidden></div>
+            <canvas class="map-canvas" id="map-canvas" aria-label="内容分布三维图"></canvas>
+            <div class="map-ylabels" id="map-ylabels"></div>
+            <div class="map-hud">
+              <div class="hud-card">
+                <b>怎么看这张图</b>
+                <span class="axis-note">三个轴共用同一个原点，都是直线。左半段是更早的公开来源，右半段是当前调查区间。</span>
+                <div class="map-legend" id="map-legend"></div>
+              </div>
+              <div class="hud-card" id="map-counts"></div>
+            </div>
+            <div class="map-tip" id="map-tip" hidden></div>
+          </div>
+          <div class="map-controls">
+            <button class="mbtn" id="map-rot" aria-pressed="false" type="button">自动旋转</button>
+            <button class="mbtn" id="map-reset" type="button">回到正视</button>
+            <button class="mbtn" id="map-table" aria-pressed="false" type="button">文字版分布</button>
+            <span class="hint">拖动可以转动视角，滚轮可以拉近拉远</span>
+          </div>
+        </div>
+        <div class="map-readout">
+          <div class="pick-list" id="pick-list"></div>
+          <div class="pick-detail" id="pick-detail"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <p class="eyebrow">匹配</p>
+      <div class="match" id="scene-match">
+        <p class="who" id="match-identity">—</p>
+        <h3 class="q-why">这个问题为什么找到了你？</h3>
+        <p id="match-reason">—</p>
+        <p id="match-confirm">—</p>
+        <p class="cost" id="match-cost">—</p>
+        <div class="cta-row">
+          <a class="cta" href="#/interview?demo=1">以这个身份体验</a>
+          <a class="cta alt" href="#/interview">按我的真实情况参与</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2. 参与采访 ============ -->
+  <section class="view" id="view-interview" hidden>
+    <div class="section">
+      <p class="eyebrow">参与采访</p>
+      <h2 class="h">先确认你和这件事的关系</h2>
+      <p class="sub" style="max-width:58ch">同一个问题，不同位置的人知道的东西不一样。选一个最接近你的位置，问题只会问你那一部分。</p>
+      <div class="role-grid" id="role-grid"></div>
+    </div>
+    <div class="section" id="interview-stage" hidden>
+      <div class="steps" id="interview-steps"></div>
+      <div id="interview-body" style="margin-top:20px"></div>
+    </div>
+  </section>
+
+  <!-- ============ 3. 贡献确认 ============ -->
+  <section class="view" id="view-card" hidden>
+    <div class="section">
+      <p class="eyebrow">贡献确认</p>
+      <h2 class="h">这是一份个人经历，不代表行业整体情况</h2>
+      <p class="sub" style="max-width:58ch">确认后，它将进入当前调查，不会自动发布成知乎回答。你可以随时删除它。</p>
+      <div id="card-body"></div>
+    </div>
+  </section>
+
+  <!-- ============ 4. 问题变化 ============ -->
+  <section class="view" id="view-changes" hidden>
+    <div class="section">
+      <p class="eyebrow">问题变化</p>
+      <h2 class="h" id="changes-title">你的经历补上了一段真实过程，也让问题发现了下一处未知。</h2>
+      <p class="sub" style="max-width:60ch">下面是这条经历进入之后，六条子命题各自的覆盖状态发生了什么变化。变化为 0 的地方，说明这段经历没有触及那一条。</p>
+      <div class="changes" id="changes-list"></div>
+      <div class="next-q" id="next-question" hidden></div>
+      <div class="cta-row">
+        <a class="cta" href="#/conclusions">看当前调查结论</a>
+        <a class="cta alt" href="#/">回到现场</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. 当前调查结论 ============ -->
+  <section class="view" id="view-conclusions" hidden>
+    <div class="section">
+      <div class="concl-head">
+        <div>
+          <p class="eyebrow">当前调查结论</p>
+          <h2 class="h" id="concl-title">正在加载…</h2>
+          <p class="headline" id="concl-headline"></p>
+        </div>
+        <div>
+          <div class="boundary" style="margin-top:0">
+            <b>边界</b>
+            <p id="concl-boundary">—</p>
+          </div>
+          <div class="corpus" id="concl-corpus"></div>
+          <div class="llm-box" id="concl-llm"></div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <p class="eyebrow">六条子命题</p>
+      <div id="concl-list"></div>
+    </div>
+  </section>
+
+  <!-- ============ 6. 知乎回答 ============ -->
+  <section class="view" id="view-answer" hidden>
+    <div class="section">
+      <p class="eyebrow">继续形成知乎回答</p>
+      <h2 class="h">把当前调查整理成一份可以先修改的草稿</h2>
+      <p class="sub" style="max-width:62ch">草稿只由已确认的公开来源和当事人经历拼成，没有添加任何未经验证的说法。它不是自动发布的内容。</p>
+      <div class="draft-tools">
+        <button class="cta alt" id="answer-refresh" type="button">重新生成草稿</button>
+        <button class="cta" id="answer-copy" type="button">复制全文</button>
+        <span class="mono-note" id="answer-meta"></span>
+      </div>
+      <div class="draft">
+        <div class="bar">
+          <span>草稿 · 可编辑</span>
+          <span id="answer-count"></span>
+        </div>
+        <textarea id="answer-body" spellcheck="false" aria-label="回答草稿"></textarea>
+      </div>
+      <p class="notice" id="answer-notice"></p>
+    </div>
+  </section>
+
+  <!-- ============ 7. 知识宇宙 ============ -->
+  <section class="view" id="view-universe" hidden>
+    <div class="section">
+      <p class="eyebrow">知识宇宙</p>
+      <h2 class="h">每个活问题都是一颗星</h2>
+      <p class="sub" style="max-width:60ch">高度表示这个问题当前被真实经历覆盖的程度，低处是刚提出、还缺少当事人内容的问题。星与星之间的细线，表示它们共用同一条子命题。</p>
+      <div class="cosmos" id="cosmos">
+        <div class="stage">
+          <canvas id="cosmos-canvas" aria-label="活问题知识宇宙"></canvas>
+          <div class="hud">
+            <div class="box">
+              <b>怎么看</b>
+              <span>拖动转动，滚轮缩放。点一颗星，下面会显示它当前缺什么。</span>
+            </div>
+            <div class="box" id="cosmos-count"></div>
+          </div>
+          <div class="tip" id="cosmos-tip" hidden></div>
+        </div>
+      </div>
+      <div class="q-list" id="cosmos-list"></div>
+    </div>
+  </section>
+
+  <!-- ============ 8. 提出新问题 ============ -->
+  <section class="view" id="view-new" hidden>
+    <div class="section">
+      <p class="eyebrow">提出新问题</p>
+      <h2 class="h">写下一个你觉得还没有答案的问题</h2>
+      <p class="sub" style="max-width:60ch">系统会判断它能不能启动：边界太宽会先让你收窄，公开内容已经足够充分的问题不会被重复启动。</p>
+      <div class="form" style="max-width:760px">
+        <div class="q">
+          <label for="new-question">你的问题</label>
+          <span class="hint">一句话，限定一群人、一个阶段、一件具体的事。</span>
+          <textarea class="ta" id="new-question" placeholder="例如：普通本科应届生投 AI 产品岗，简历关卡在哪里？"></textarea>
+        </div>
+        <div class="cta-row" style="margin-top:6px">
+          <button class="cta" id="new-submit" type="button">检查这个问题能不能启动</button>
+        </div>
+        <p class="form-msg" id="new-msg" hidden></p>
+      </div>
+      <div id="new-verdict"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <p class="fq">当 AI 已经读过互联网，知乎可以让它继续向现实中的人发问。</p>
+  <p class="fm">
+    <b>活问题 · 知乎黑客松</b>
+    <span id="foot-note">—</span>
+  </p>
+</footer>
+
+</div>
+<script type="module" src="/huowenti.js"></script>
+</body>
+</html>

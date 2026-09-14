@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>在场 · 让现实给答案</title>
+<meta name="description" content="AI 整理已有内容，真实现场由到场的人确认。知乎黑客松 2026 参赛作品。">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="grain"></div>
+<div class="wrap">
+
+<header class="site">
+  <a class="brand" href="/"><span class="mark">◉</span><span>在场</span><small>Reality, verified.</small></a>
+  <div class="header-actions">
+    <a class="pill ghost" href="#how">它怎么运作</a>
+    <button class="pill" id="login" type="button">知乎账号登录</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <p class="eyebrow">AI × 真实经历 · 知乎黑客松 2026</p>
+    <h1 class="display">有些答案，<em>必须有人在场。</em></h1>
+    <p class="lede">AI 已经读完了互联网，<strong>但它不知道此刻</strong>。<br>当一个决定取决于现场，在场帮你找到真正到过那里的人，并把每一条证据标注清楚。</p>
+
+    <div class="ask">
+      <div class="ask-head">
+        <b>你想确认什么？</b>
+        <span class="live-dot" id="live"><i></i><span id="live-text">正在读取知乎内容库…</span></span>
+      </div>
+      <label class="sr-only" for="question">你想确认的问题</label>
+      <textarea id="question" rows="3" maxlength="300" placeholder="例如：现在去首都机场 T3 还来得及吗？安检排队多久？"></textarea>
+      <div class="ask-foot">
+        <span class="hint">Ctrl / ⌘ + Enter 开始确认 · 不会替你编造现场</span>
+        <button class="cta" id="start" type="button">开始确认 <b>→</b></button>
+      </div>
+    </div>
+
+    <div class="examples">
+      <span>试试：</span>
+      <button type="button">现在去首都机场 T3 还来得及吗</button>
+      <button type="button">此刻西湖断桥人多吗，现在去合适吗</button>
+      <button type="button">如何让老板给我升职加薪</button>
+      <button type="button">不想学习的时候怎么逼自己学习</button>
+    </div>
+  </section>
+
+  <div id="stage"></div>
+
+  <section class="signal" id="how">
+    <div class="signal-rail">
+      <div class="cell">
+        <strong>01 · 先分清已知与未知</strong>
+        <p>把问题拆成地点、时间与待确认事实，并检索知乎已有公开内容作为背景。</p>
+      </div>
+      <div class="cell">
+        <strong>02 · 把未知交给在场的人</strong>
+        <p>生成一条可分享的求证链接，请真正到过现场的人补充自己的观察。</p>
+      </div>
+      <div class="cell">
+        <strong>03 · 证据留痕，冲突保留</strong>
+        <p>每条反馈都带时间、来源关系与信号。说法冲突时如实呈现，不强行给出结论。</p>
+      </div>
+      <div class="stat">
+        <b id="corpus-count">—</b>
+        <small>篇知乎公开内容已接入</small>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <span><b>在场 Zaichang</b> · 知乎黑客松 2026 参赛作品</span>
+  <span>无凭证时不伪造来源 · 不收集精确位置 · 不代替官方确认</span>
+</footer>
+
+</div>
+<script src="/assets/vendor/qrcode.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>

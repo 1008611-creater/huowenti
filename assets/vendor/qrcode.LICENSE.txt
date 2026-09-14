@@ -1,0 +1,6 @@
+qrcode-generator v2.0.4 (https://github.com/kazuhikoarase/qrcode-generator)
+Copyright (c) 2009 Kazuhiko Arase
+Licensed under the MIT License. Full text: https://opensource.org/licenses/MIT
+
+Vendored into this project as a static asset so the app has no external CDN
+dependency and works fully offline. Do not replace with a remotely hosted copy.
