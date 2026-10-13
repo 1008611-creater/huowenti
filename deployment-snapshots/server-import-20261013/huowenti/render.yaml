@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: huowenti
+    runtime: node
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: ZHIHU_ACCESS_SECRET
+        sync: false

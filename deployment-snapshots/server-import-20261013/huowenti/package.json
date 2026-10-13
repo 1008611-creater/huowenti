@@ -1,0 +1,16 @@
+{
+  "name": "huowenti",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "security": "node scripts/security-check.mjs",
+    "e2e": "node scripts/e2e.mjs",
+    "check": "node scripts/security-check.mjs",
+    "share": "node scripts/share.mjs"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
