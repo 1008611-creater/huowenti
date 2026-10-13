@@ -1,0 +1,454 @@
+{
+  "project": "huowenti",
+  "project_name": "活问题 / Living Question",
+  "event": "知乎黑客松 2026（zhihu_hackathon_2026_p2）",
+  "project_type": "website_web_app",
+  "one_liner": "有些答案不在互联网上，它们还在经历过这件事的人手里。",
+  "mother_question": "2027 届普通本科生找第一段 AI 产品实习到底有多难？",
+  "public_url": "https://zaichang.cauai.fun",
+  "repository": "https://github.com/1008611-creater/huowenti",
+  "stack": {
+    "runtime": "node",
+    "server": "express",
+    "frontend": "static-html-css-js (零构建依赖，单页八个视图)",
+    "graph": "three.js（随仓库自托管，无外部 CDN）",
+    "persistence": "json-file"
+  },
+  "routes": {
+    "home": "/",
+    "views": "/huowenti/:view",
+    "summary_api": "/api/huowenti/summary",
+    "roles_api": "/api/huowenti/roles/:roleKey",
+    "interview_api": "/api/huowenti/interview",
+    "interview_update_api": "/api/huowenti/interview/:draftId",
+    "followup_api": "/api/huowenti/followup",
+    "draft_api": "/api/huowenti/draft/:draftId",
+    "contribution_api": "/api/huowenti/contribution",
+    "contributions_api": "/api/huowenti/contributions",
+    "contribution_delete_api": "/api/huowenti/contribution/:id",
+    "conclusions_api": "/api/huowenti/conclusions",
+    "graph_api": "/api/huowenti/graph",
+    "new_question_api": "/api/huowenti/new-question",
+    "answer_draft_api": "/api/huowenti/answer-draft",
+    "llm_config_api": "/api/huowenti/llm-config",
+    "llm_test_api": "/api/huowenti/llm-test",
+    "health_api": "/api/health"
+  },
+  "views": [
+    {
+      "hash": "#/",
+      "id": "view-scene",
+      "name": "活问题现场"
+    },
+    {
+      "hash": "#/interview",
+      "id": "view-interview",
+      "name": "参与采访"
+    },
+    {
+      "hash": "#/card",
+      "id": "view-card",
+      "name": "贡献确认"
+    },
+    {
+      "hash": "#/changes",
+      "id": "view-changes",
+      "name": "问题变化"
+    },
+    {
+      "hash": "#/conclusions",
+      "id": "view-conclusions",
+      "name": "当前结论"
+    },
+    {
+      "hash": "#/answer",
+      "id": "view-answer",
+      "name": "知乎回答"
+    },
+    {
+      "hash": "#/universe",
+      "id": "view-universe",
+      "name": "知识宇宙"
+    },
+    {
+      "hash": "#/new",
+      "id": "view-new",
+      "name": "提出新问题"
+    }
+  ],
+  "subtopics": [
+    {
+      "key": "background",
+      "name": "初始背景",
+      "need": "学校背景、专业、已有实习和已有项目"
+    },
+    {
+      "key": "project",
+      "name": "项目经历",
+      "need": "项目是否可运行、是否有真实用户、个人贡献是什么"
+    },
+    {
+      "key": "apply",
+      "name": "投递过程",
+      "need": "投递渠道、投递数量、目标公司类型"
+    },
+    {
+      "key": "screen",
+      "name": "面试筛选",
+      "need": "简历反馈、面试阶段、具体淘汰位置"
+    },
+    {
+      "key": "company",
+      "name": "公司差异",
+      "need": "大厂、成熟公司和 AI 创业公司的判断差异"
+    },
+    {
+      "key": "result",
+      "name": "最终结果与失败过程",
+      "need": "最好进度、Offer 情况、做过但没有产生效果的准备"
+    }
+  ],
+  "gaps": [
+    {
+      "key": "gap-fail",
+      "title": "普通本科、没有互联网实习者的完整失败过程",
+      "subtopics": [
+        "background",
+        "apply",
+        "result"
+      ]
+    },
+    {
+      "key": "gap-recruiter",
+      "title": "招聘参与者对简历淘汰和面试判断的具体说明",
+      "subtopics": [
+        "screen",
+        "company"
+      ]
+    },
+    {
+      "key": "gap-company",
+      "title": "同一种项目经历在不同公司类型中的实际结果差异",
+      "subtopics": [
+        "project",
+        "company"
+      ]
+    }
+  ],
+  "roles": [
+    {
+      "key": "gained",
+      "name": "我已经拿到实习或进入面试",
+      "questions": 6,
+      "entry_subtopics": [
+        "project",
+        "screen",
+        "result"
+      ]
+    },
+    {
+      "key": "rejected",
+      "name": "我投递过，但没有结果",
+      "questions": 6,
+      "entry_subtopics": [
+        "apply",
+        "screen",
+        "result"
+      ]
+    },
+    {
+      "key": "seeker",
+      "name": "我正在找第一段 AI 产品实习",
+      "questions": 5,
+      "entry_subtopics": [
+        "background",
+        "apply"
+      ]
+    },
+    {
+      "key": "recruiter",
+      "name": "我参与过招聘或面试",
+      "questions": 5,
+      "entry_subtopics": [
+        "screen",
+        "company"
+      ]
+    }
+  ],
+  "role_order": [
+    "gained",
+    "rejected",
+    "seeker",
+    "recruiter"
+  ],
+  "evidence_model": {
+    "states": [
+      {
+        "code": "multi-case",
+        "label": "已有多份经历",
+        "rule": "同一子命题下已确认的当事人经历 >= 2 条，可以开始比较条件差异"
+      },
+      {
+        "code": "single-case",
+        "label": "只有一份经历",
+        "rule": "同一子命题下已确认的当事人经历 = 1 条，还不能说明普遍情况"
+      },
+      {
+        "code": "public-only",
+        "label": "只有公开讨论",
+        "rule": "只有公开来源、没有当事人提供的完整过程"
+      },
+      {
+        "code": "empty",
+        "label": "覆盖不足",
+        "rule": "当前检索范围内既没有当事人经历，也没有相关公开来源"
+      }
+    ],
+    "scope": "四种状态按六条子命题分别计算，不是整份调查一个总分",
+    "relevance_rule": "相关性判据只有一套：同一套关键词同时用于『三维图上挂哪些内容』与『提出新问题时判断该领域内容够不够』",
+    "relevance_keywords": [
+      "实习",
+      "实习生",
+      "求职",
+      "找工作",
+      "秋招",
+      "春招",
+      "校招",
+      "应届",
+      "应届生",
+      "简历",
+      "面试",
+      "笔试",
+      "招聘",
+      "应聘",
+      "内推",
+      "投递",
+      "offer",
+      "Offer",
+      "毕业生",
+      "本科",
+      "本科生",
+      "大学生",
+      "在校生",
+      "就业",
+      "产品经理",
+      "第一段实习"
+    ],
+    "relevance_exclusions": {
+      "rule": "泛职场词一律排除，因为它们不回答母问题",
+      "words": [
+        "职场",
+        "职业",
+        "工作",
+        "升职",
+        "加薪",
+        "职业倦怠",
+        "职业发展"
+      ],
+      "why": "修复前这些词会让『如何让老板给我升职加薪』这类内容被挂到三维图上，同时新问题判定却说『0 条相关讨论』——两处口径自相矛盾"
+    },
+    "counter_case_rule": "两份经历在『本科 / 大厂 / 创业公司 / 有真实用户』等条件上相近、结果却相反时，标记为对照连线并提示继续追问，不取平均",
+    "no_average_rule": "分歧不被抹平成中间值，如实呈现"
+  },
+  "graph": {
+    "axes": "时间 × 子命题 × 内容数量",
+    "x_axis": "时间：左半段为更早的公开来源（2020–2023），右半段为当前调查区间（2024–2027），按季度划分",
+    "y_axis": "六条子命题",
+    "z_axis": "该格内容条数",
+    "layers": [
+      "contribution 当事人经历",
+      "sample 体验样本",
+      "source 公开来源"
+    ],
+    "star_rule": "每颗星是一条可以点开核对的内容；密度微光只表示该格内容多，不可点击、不计入统计",
+    "particle_constraint": "粒子必须是细小星光点，不能画成泡泡 / 球体 / 玻璃珠（PRD 11.4 硬约束）",
+    "axis_rule": "三个轴共用同一个原点，都是直线"
+  },
+  "motion": {
+    "source": "公开项目 motion-web（MIT）",
+    "applied": [
+      "六档时长令牌：instant / fast / standard / medium / slow / cinematic",
+      "真实弹簧与过冲缓动：CSS linear() 曲线，实测 4 处调用",
+      "帧率无关推进：持续动效按时间推进，不按帧数",
+      "滚轮惯性防护：三维图滚轮缩放不会带动页面滚动",
+      "reduced-motion 三级降级：开启减少动态效果后内容照常出现，只是不再动"
+    ]
+  },
+  "secrets": [
+    "ZHIHU_ACCESS_SECRET"
+  ],
+  "external_services": {
+    "zhihu_open_api": {
+      "purpose": "按关键词检索知乎公开内容，作为公开来源底账",
+      "endpoint": "https://developer.zhihu.com/api/v1/content/zhihu_search",
+      "auth": "Authorization: Bearer <secret> + X-Request-Timestamp（秒级）",
+      "configured": false,
+      "degrade": "未配置时页面如实标注为关闭，不伪造来源"
+    },
+    "zhihu_public_corpus": {
+      "purpose": "免鉴权的公开内容底账",
+      "endpoint": "api.zhihu.com/km-indep-home/hackathon/v2/{story|knowledge}/list",
+      "count": 30,
+      "note": "该接口为固定榜单，不支持按关键词检索"
+    },
+    "llm": {
+      "purpose": "可选增强：把当前调查整理成知乎回答草稿",
+      "configured": false,
+      "degrade": "未配置时走确定性的本地拼装，并如实标注，不假装是实时结果"
+    }
+  },
+  "quality_gates": {
+    "product_loop_runs_end_to_end": "verified",
+    "graph_renders_real_content": "verified",
+    "scene_motion_continuous": "verified",
+    "responsive_320_1440": "verified",
+    "design_tokens_no_dangling": "verified",
+    "motion_duration_tiers": "verified",
+    "spring_easing_applied": "verified",
+    "section_shape_diversity": "verified",
+    "type_scale_contrast": "verified",
+    "interview_to_contribution_card": "verified",
+    "followup_based_on_answer": "verified",
+    "answer_draft_generated": "verified",
+    "new_question_verdict": "verified",
+    "reduced_motion_content_visible": "verified",
+    "static_asset_boundary": "verified",
+    "path_traversal_blocked": "verified",
+    "security_headers": "verified",
+    "self_hosted_fonts_offline": "verified",
+    "zero_external_requests": "verified",
+    "public_deployment": "verified"
+  },
+  "verification_records": [
+    {
+      "at": "2026-09-14",
+      "scope": "浏览器端到端验收",
+      "method": "真实浏览器 + 真实服务器上实跑 31 项检查",
+      "result": "31 项通过 / 0 失败；控制台报错 0；失败请求 0；外部请求 0"
+    },
+    {
+      "at": "2026-09-14",
+      "scope": "三维图是否真的画出内容",
+      "method": "对渲染结果做像素与颜色统计",
+      "result": "不同颜色 554 种，主色占比 88.4%"
+    },
+    {
+      "at": "2026-09-14",
+      "scope": "画面是否持续运动",
+      "method": "连续两帧截图比对",
+      "result": "两帧差异 73394 / 74294 字节，画面确实在动"
+    },
+    {
+      "at": "2026-09-14",
+      "scope": "响应式",
+      "method": "320 / 375 / 414 / 768 / 1440 五档宽度实测",
+      "result": "横向溢出均为 0"
+    },
+    {
+      "at": "2026-09-14",
+      "scope": "设计令牌与动效令牌",
+      "method": "静态检查页面引用的 CSS 变量与时长分档",
+      "result": "引用 29 个令牌，失效 0 个；六档时长令牌全部生效；弹簧缓动已接入"
+    },
+    {
+      "at": "2026-09-14",
+      "scope": "相关性判据修复",
+      "method": "逐条把三维图上的内容与母问题比对，并复核新问题判定的口径",
+      "result": "修复前图上有 4 条与母问题无关的内容（升职加薪 / 穷人思维 / 职业倦怠 / 职业发展金字塔）且与新问题判定自相矛盾；收紧关键词后图上公开来源为 0，被排除的公开内容 30 条，两处口径一致"
+    },
+    {
+      "at": "2026-09-14",
+      "scope": "线上测试数据清理",
+      "method": "逐条核对线上已确认的贡献记录",
+      "result": "删除 3 条字段错位的残留数据，清理后线上贡献数为 0"
+    },
+    {
+      "at": "2026-09-14",
+      "scope": "对外接口边界",
+      "method": "对线上服务逐个请求旧接口与旧页面",
+      "result": "旧接口（/api/cases、/api/corpus、/api/weather、/api/analyze）与旧页面（/verify/*、/case/*、/oauth/*）全部 404；对外只保留 /api/health 与 /api/huowenti/*"
+    },
+    {
+      "at": "2026-09-14",
+      "scope": "静态资源边界",
+      "method": "在服务器上运行安全边界检查脚本",
+      "result": "60 项通过 / 0 失败；源码、数据、脚本、日志、文档均不对外提供，目录穿越全部拦下"
+    },
+    {
+      "at": "2026-09-14",
+      "scope": "公网可访问性",
+      "method": "从公网地址发起请求",
+      "result": "https://zaichang.cauai.fun 返回 200"
+    }
+  ],
+  "docs": [
+    "README.md",
+    "DESIGN.md",
+    "提报材料.md",
+    "docs/product-plan.md",
+    "docs/final-pitch.md",
+    "docs/demo-script.md",
+    "docs/dev-log.md"
+  ],
+  "not_done": [
+    "知乎开放平台搜索接口的凭证端到端联调：调用路径已实现，当前未配置凭证",
+    "3 分钟演示视频（选交加分项）",
+    "知乎账号登录：第一版刻意不要求登录，以降低参与门槛"
+  ],
+  "updated_at": "2026-09-14T00:00:00.000Z",
+  "security_boundary": {
+    "static_whitelist": [
+      "/（首页，渲染 huowenti.html）",
+      "/index.html",
+      "/huowenti.css",
+      "/huowenti.js",
+      "/assets/*（含自托管字体与图标）",
+      "/assets/vendor/three.module.min.js",
+      "/robots.txt"
+    ],
+    "never_served": [
+      "/data/*",
+      "/lib/*",
+      "/scripts/*",
+      "/logs/*",
+      "/docs/*",
+      "/node_modules/*",
+      "/.git/*",
+      ".env",
+      "server.js",
+      "package.json",
+      "PROJECT_MANIFEST.json"
+    ],
+    "traversal_rule": "URL 解码后折叠 . 与 ..，任一路径段为 .. 直接 404",
+    "response_headers": {
+      "Content-Security-Policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'",
+      "X-Content-Type-Options": "nosniff",
+      "Referrer-Policy": "strict-origin-when-cross-origin",
+      "X-Frame-Options": "DENY（默认可嵌入性关闭）",
+      "Permissions-Policy": "geolocation=(), camera=(), microphone=(), payment=()",
+      "Cross-Origin-Opener-Policy": "same-origin",
+      "Cross-Origin-Resource-Policy": "same-origin",
+      "X-Powered-By": "已关闭"
+    }
+  },
+  "performance": {
+    "fonts": "105 个 woff2 自托管分片，按 unicode-range 按需加载，fonts 目录合计 6.11 MiB",
+    "offline_rule": "页面零外部网络请求，不加载任何第三方脚本或统计代码",
+    "third_party_assets": "三维图使用随仓库自托管的 three.js，无 CDN 依赖"
+  },
+  "deployment": {
+    "host": "服务器（Docker 容器运行 Node 服务，--restart always，开机自启、异常自动重启）",
+    "tunnel": "Cloudflare 隧道（systemd 服务，Restart=always）对外提供固定 https 地址",
+    "public_url": "https://zaichang.cauai.fun",
+    "local_dev_required": false,
+    "health_check": "/api/health"
+  },
+  "privacy": [
+    "不自动读取 GPS，不要求精确位置",
+    "不要求实名，参与者可以选择匿名",
+    "不把单条个人经历当作普遍事实",
+    "不收集与问题无关的个人信息",
+    "贡献可以随时删除",
+    "不自动发布任何内容到知乎"
+  ]
+}
